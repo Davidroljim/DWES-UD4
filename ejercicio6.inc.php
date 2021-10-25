@@ -20,4 +20,4 @@ function creaVuelo (){
         echo "El id del último elemento añadido es ", mysqli_insert_id($mysqli);
 }
 
-?>s
+?>

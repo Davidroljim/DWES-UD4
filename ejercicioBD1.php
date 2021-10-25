@@ -21,10 +21,11 @@
     $origen="Huelva";
     $id=6;
 
-    $sql="SELECT * FROM vuelos Where Origen=? AND id=?";
+    $sql="SELECT * FROM vuelos WHERE Origen=? AND id=?";
     $consulta = mysqli_stmt_init($mysqli);
 
     if ($stmt= mysqli_prepare($mysqli, $sql)) {
+        
         mysqli_stmt_bind_param($stmt, "si", $origen, $id);
         mysqli_stmt_execute($stmt);
         
