@@ -18,48 +18,48 @@ function creaVuelo ($origen,$destino,$fecha,$companya,$modeloAvion){
     $mysqli = creaConexion();
     $sql="INSERT INTO `vuelos` (Origen, Destino, Fecha, Companya, ModeloAvion) VALUES (?, ?, ?, ?, ?)";
     $consulta = mysqli_stmt_init($mysqli);
+    $retorno=false;
 
     if ($stmt= mysqli_prepare($mysqli, $sql)) {
         
         mysqli_stmt_bind_param($stmt, "sssss", $origen, $destino, $fecha, $companya, $modeloAvion);
-        mysqli_stmt_execute($stmt);
+        $retorno=mysqli_stmt_execute($stmt);
 
         mysqli_stmt_close($stmt);
     }
-        echo "vuelo creado";
-        echo "<br>";
+        return $retorno;
 }
 
 function modificaDestino ($nuevoDestino,$id){
     $mysqli = creaConexion();
     $sql = "UPDATE `vuelos` SET `Destino`=? WHERE `id`=?";
     $consulta = mysqli_stmt_init($mysqli);
+    $retorno=false;
 
     if ($stmt= mysqli_prepare($mysqli, $sql)) {
         
         mysqli_stmt_bind_param($stmt, "si", $nuevoDestino, $id);
-        mysqli_stmt_execute($stmt);
+        $retorno=mysqli_stmt_execute($stmt);
 
         mysqli_stmt_close($stmt);
     }
-        echo "vuelo modificado";
-        echo "<br>";
+    return $retorno;
 }
 
 function modificaCompanya ($nuevaCompanya,$id){
     $mysqli = creaConexion();
     $sql = "UPDATE `vuelos` SET `Companya`=? WHERE `id`=?";
     $consulta = mysqli_stmt_init($mysqli);
+    $retorno=false;
 
     if ($stmt= mysqli_prepare($mysqli, $sql)) {
         
         mysqli_stmt_bind_param($stmt, "si", $nuevaCompanya, $id);
-        mysqli_stmt_execute($stmt);
+        $retorno=mysqli_stmt_execute($stmt);
 
         mysqli_stmt_close($stmt);
     }
-        echo "vuelo modificado";
-        echo "<br>";
+    return $retorno;
 }
 
 function eliminaVuelo ($id){
@@ -67,15 +67,15 @@ function eliminaVuelo ($id){
     $mysqli = creaConexion();
     $sql = "DELETE FROM `vuelos` WHERE `id`=? ";
     $consulta = mysqli_stmt_init($mysqli);
+    $retorno=false;
 
     if ($stmt= mysqli_prepare($mysqli, $sql)) {
         
         mysqli_stmt_bind_param($stmt, "i", $id);
-        mysqli_stmt_execute($stmt);
+        $retorno=mysqli_stmt_execute($stmt);
 
         mysqli_stmt_close($stmt);
-        echo "vuelo BORRADO";
-        echo "<br>";
+        return $retorno;
     }
 }
 
@@ -83,9 +83,10 @@ function extraeVuelos (){
     $mysqli = creaConexion();
     $sql = "SELECT * FROM vuelos";
     $consulta = mysqli_stmt_init($mysqli);
+    $retorno=false;
 
     if ($stmt= mysqli_prepare($mysqli, $sql)) {
-        mysqli_stmt_execute($stmt);
+        $retorno=mysqli_stmt_execute($stmt);
         
         mysqli_stmt_bind_result($stmt, $id, $origen, $destino, $fecha, $companya, $modeloAvion);
         
@@ -94,6 +95,7 @@ function extraeVuelos (){
             echo "<br>";echo "<br>";
         }
         mysqli_stmt_close($stmt);
+        return $retorno;
     }
 }
 ?>
